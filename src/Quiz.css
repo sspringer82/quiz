@@ -1,0 +1,18 @@
+.question {
+  margin-left: 5px;
+  text-align: center;
+  width: 198px;
+  border: 1px solid grey;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+.answers {
+  width: 220px;
+}
+
+button {
+  margin: 5px;
+  display: inline-block;
+  width: 100px;
+}

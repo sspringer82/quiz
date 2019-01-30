@@ -1,0 +1,28 @@
+{
+  "question": [
+    {
+      "id": 1,
+      "question": "Lautstärke misst man in...?",
+      "answers": [
+        { "id": 1, "answer": "Liter" },
+        { "id": 2, "answer": "Gramm" },
+        { "id": 3, "answer": "Dezibel" },
+        { "id": 4, "answer": "Celsius" }
+      ],
+      "correct": 3,
+      "next": 2
+    },
+    {
+      "id": 2,
+      "question": "Welcher Krieg begann durch den prager Fenstersturz",
+      "answers": [
+        { "id": 1, "answer": "1. Weltkrieg" },
+        { "id": 2, "answer": "30-jähriger Krieg" },
+        { "id": 3, "answer": "100-jähriger Krieg" },
+        { "id": 4, "answer": "7-jähriger Krieg" }
+      ],
+      "correct": 2,
+      "next": null
+    }
+  ]
+}
