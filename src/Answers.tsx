@@ -1,5 +1,7 @@
-import React from "react";
-import { Answer } from "./Question";
+import React from 'react';
+import { Answer } from './Question';
+import './Answers.css';
+import DarkModeContext from './context';
 
 interface Props {
   answers: Answer[];
@@ -12,25 +14,32 @@ export default function Answers({
   answers,
   correct,
   answered,
-  onAnswer
+  onAnswer,
 }: Props) {
   return (
-    <div className="answers">
-      {answers.map(answer => {
-        let style = { backgroundColor: "" };
-        if (answered && answer.id === correct) {
-          style.backgroundColor = correct !== answered ? "red" : "green";
-        }
+    <DarkModeContext.Consumer>
+      {darkMode => {
+        const classNames = ['answers', darkMode ? 'darkTheme' : ''];
         return (
-          <button
-            key={answer.id}
-            style={style}
-            onClick={() => onAnswer(answer.id)}
-          >
-            {answer.answer}
-          </button>
+          <div className={classNames.join(' ')}>
+            {answers.map(answer => {
+              let style = { backgroundColor: '' };
+              if (answered && answer.id === correct) {
+                style.backgroundColor = correct !== answered ? 'red' : 'green';
+              }
+              return (
+                <button
+                  key={answer.id}
+                  style={style}
+                  onClick={() => onAnswer(answer.id)}
+                >
+                  {answer.answer}
+                </button>
+              );
+            })}
+          </div>
         );
-      })}
-    </div>
+      }}
+    </DarkModeContext.Consumer>
   );
 }

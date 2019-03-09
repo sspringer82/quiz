@@ -1,10 +1,22 @@
-.question {
-  margin-left: 5px;
+.quiz {
+  padding-top: 5px;
+  width: 300px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.quiz .question {
   text-align: center;
   width: 198px;
   border: 1px solid grey;
   border-radius: 3px;
   padding: 5px;
+}
+
+.quiz.darkTheme .question {
+  background-color: black;
+  border-color: white;
 }
 
 .answers {
@@ -15,4 +27,9 @@ button {
   margin: 5px;
   display: inline-block;
   width: 100px;
+}
+
+.quiz.darkTheme {
+  color: white;
+  background-color: #333;
 }

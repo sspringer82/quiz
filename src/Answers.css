@@ -1,0 +1,12 @@
+.answers button {
+  border: 1px solid grey;
+  background-color: white;
+  border-radius: 3px;
+  color: black;
+}
+
+.answers.darkTheme button {
+  border-color: white;
+  color: white;
+  background-color: black;
+}
