@@ -3,7 +3,6 @@ import React, { Component, ReactElement } from 'react';
 import './Quiz.css';
 import Answers from './Answers';
 import { Question } from './Question';
-import { ThemeContext } from './App';
 import context from './context';
 import DarkModeContext from './context';
 

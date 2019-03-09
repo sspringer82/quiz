@@ -4,8 +4,6 @@ import Quiz from './Quiz';
 import ThemeSwitcher from './ThemeSwitcher';
 import DarkModeContext from './context';
 
-export const ThemeContext = React.createContext('light');
-
 interface State {
   darkMode: boolean;
   finished: boolean;
@@ -69,10 +67,12 @@ export default class App extends React.Component<{}, State> {
     }
 
     return (
-      <DarkModeContext.Provider value={this.state.darkMode}>
-        <ThemeSwitcher onChangeTheme={this.toggleDarkMode} />
-        {content}
-      </DarkModeContext.Provider>
+      <>
+        <DarkModeContext.Provider value={this.state.darkMode}>
+          <ThemeSwitcher onChangeTheme={this.toggleDarkMode} />
+          {content}
+        </DarkModeContext.Provider>
+      </>
     );
   }
 }
