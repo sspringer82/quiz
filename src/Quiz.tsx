@@ -1,24 +1,29 @@
-import React, { Component, ReactElement } from 'react';
+import React, { Component, ReactElement } from "react";
 
-import './Quiz.css';
-import Answers from './Answers';
-import { Question } from './Question';
+import "./Quiz.css";
+import Answers from "./Answers";
+import { Question } from "./Question";
 
 interface State {
   question: Question;
-  correct: boolean | null;
+  answered: number | null;
 }
 
-export default class Quiz extends Component<{}, State> {
+interface Props {
+  onComplete: () => void;
+  onAnswered: (correct: boolean) => void;
+}
+
+export default class Quiz extends Component<Props, State> {
   public state = {
-    correct: null,
+    answered: null,
     question: {
       id: 0,
-      question: '',
+      question: "",
       answers: [],
       correct: 0,
-      next: null,
-    },
+      next: null
+    }
   };
 
   async componentDidMount() {
@@ -27,41 +32,38 @@ export default class Quiz extends Component<{}, State> {
 
   async getQuestion(id: number) {
     const response = await fetch(`/question/${id}`);
-    const data = await response.json();
-    this.setState(prevState => {
-      return { ...prevState, question: data, correct: null };
-    });
+    const question = await response.json();
+    this.setState(() => ({ question, answered: null }));
   }
 
   answerQuestion = (id: number) => {
-    let correct = false;
-    if (id === this.state.question.correct) {
-      correct = true;
+    if (this.state.answered !== null) {
+      return;
     }
-    this.setState(prevState => ({ ...prevState, correct }));
-    // if (this.state.question.next !== null) {
-    //   setTimeout(
-    //     () => this.getQuestion((this.state.question.next as unknown) as number),
-    //     2000,
-    //   );
-    // }
+
+    let correct = id === this.state.question.correct ? true : false;
+    this.props.onAnswered(correct);
+    this.setState(prevState => ({
+      ...prevState,
+      answered: id
+    }));
+    setTimeout(() => {
+      if (this.state.question.next !== null) {
+        this.getQuestion((this.state.question.next as unknown) as number);
+      } else {
+        this.props.onComplete();
+      }
+    }, 2000);
   };
 
   render() {
-    let result = '';
-
-    if (this.state.correct === true) {
-      result = 'Yeah!';
-    } else if (this.state.correct === false) {
-      result = 'No!';
-    }
-
     return (
       <div>
-        {result && <div>{result}</div>}
         <div className="question">{this.state.question.question}</div>
         <Answers
           answers={this.state.question.answers}
+          correct={this.state.question.correct}
+          answered={this.state.answered}
           onAnswer={this.answerQuestion}
         />
       </div>
