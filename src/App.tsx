@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Quiz from './Quiz';
+import Quiz from './QuizCustom';
 import ThemeSwitcher from './ThemeSwitcher';
 import DarkModeContext from './context';
 

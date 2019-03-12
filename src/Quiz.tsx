@@ -1,9 +1,8 @@
-import React, { Component, ReactElement } from 'react';
+import React, { Component } from 'react';
 
 import './Quiz.css';
 import Answers from './Answers';
 import { Question } from './Question';
-import context from './context';
 import DarkModeContext from './context';
 
 interface State {
@@ -17,7 +16,7 @@ interface Props {
 }
 
 export default class Quiz extends Component<Props, State> {
-  static contextType = context;
+  static contextType = DarkModeContext;
   context!: React.ContextType<typeof DarkModeContext>;
 
   public state = {
