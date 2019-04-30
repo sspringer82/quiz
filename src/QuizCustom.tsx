@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useContext } from 'react';
+import React from 'react';
 
 import './Quiz.css';
 import Answers from './Answers';
