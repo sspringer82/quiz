@@ -1,8 +1,10 @@
 import React from 'react';
 import './App.css';
-import Quiz from './QuizCustom';
 import ThemeSwitcher from './ThemeSwitcher';
 import DarkModeContext from './context';
+import { Provider } from 'react-redux';
+import configureStore from './configureStore';
+import Quiz from './quiz/Quiz.container.component';
 
 interface State {
   darkMode: boolean;
@@ -12,6 +14,8 @@ interface State {
     correct: number;
   };
 }
+
+const store = configureStore();
 
 export default class App extends React.Component<{}, State> {
   public state = {
@@ -58,21 +62,16 @@ export default class App extends React.Component<{}, State> {
         </div>
       );
     } else {
-      content = (
-        <Quiz
-          onComplete={this.handleComplete}
-          onAnswered={this.increaseCount}
-        />
-      );
+      content = <Quiz />;
     }
 
     return (
-      <>
+      <Provider store={store}>
         <DarkModeContext.Provider value={this.state.darkMode}>
           <ThemeSwitcher onChangeTheme={this.toggleDarkMode} />
           {content}
         </DarkModeContext.Provider>
-      </>
+      </Provider>
     );
   }
 }
