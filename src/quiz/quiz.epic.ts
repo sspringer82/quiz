@@ -7,7 +7,7 @@ import {
   getQuestionAction,
 } from './quiz.actions';
 import { Observable, from, of } from 'rxjs';
-import { mergeMap, map, delay, mapTo, tap, filter } from 'rxjs/operators';
+import { mergeMap, map, delay, filter } from 'rxjs/operators';
 import { Question } from '../Question';
 import { State } from '../reducers';
 
