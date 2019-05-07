@@ -24,7 +24,7 @@ export default function Quiz({
 }: Props) {
   useEffect(() => {
     getQuestion(1);
-  }, []);
+  }, [getQuestion]);
   const context = useContext(DarkModeContext);
   const classNames = ['quiz', context ? 'darkTheme' : ''];
   return (

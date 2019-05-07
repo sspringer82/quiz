@@ -1,9 +1,15 @@
-import { combineEpics, ofType } from 'redux-observable';
+import { combineEpics, ofType, StateObservable } from 'redux-observable';
 import { ActionType } from 'typesafe-actions';
-import { GET_QUESTION, getQuestionSuccessAction } from './quiz.actions';
-import { Observable, from } from 'rxjs';
-import { mergeMap, map } from 'rxjs/operators';
+import {
+  GET_QUESTION,
+  getQuestionSuccessAction,
+  ANSWER_QUESTION,
+  getQuestionAction,
+} from './quiz.actions';
+import { Observable, from, of } from 'rxjs';
+import { mergeMap, map, delay, mapTo, tap, filter } from 'rxjs/operators';
 import { Question } from '../Question';
+import { State } from '../reducers';
 
 const getQuestionEpic = (action$: Observable<ActionType<any>>) =>
   action$.pipe(
@@ -18,4 +24,19 @@ const getQuestionEpic = (action$: Observable<ActionType<any>>) =>
     })
   );
 
-export default combineEpics(getQuestionEpic);
+const answerQuestionEpic = (
+  action$: Observable<ActionType<any>>,
+  state$: StateObservable<State>
+) => {
+  return action$.pipe(
+    ofType(ANSWER_QUESTION),
+    delay(2000),
+    filter(() => state$.value.quiz.question!.next! !== null),
+    mergeMap(() => {
+      const questionId = state$.value.quiz.question!.next!;
+      return of(getQuestionAction(questionId));
+    })
+  );
+};
+
+export default combineEpics(getQuestionEpic, answerQuestionEpic);
