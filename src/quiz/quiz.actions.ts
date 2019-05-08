@@ -13,3 +13,6 @@ export const GET_QUESTION_SUCCESS = 'GET_QUESTION_SUCCESS';
 export const getQuestionSuccessAction = createStandardAction(
   GET_QUESTION_SUCCESS
 )<Question>();
+
+export const FINISH = 'FINISH';
+export const finishAction = createStandardAction(FINISH)<void>();

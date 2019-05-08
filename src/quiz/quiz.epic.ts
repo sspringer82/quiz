@@ -5,9 +5,10 @@ import {
   getQuestionSuccessAction,
   ANSWER_QUESTION,
   getQuestionAction,
+  finishAction,
 } from './quiz.actions';
 import { Observable, from, of } from 'rxjs';
-import { mergeMap, map, delay, filter } from 'rxjs/operators';
+import { mergeMap, map, delay } from 'rxjs/operators';
 import { Question } from '../Question';
 import { State } from '../reducers';
 
@@ -31,9 +32,12 @@ const answerQuestionEpic = (
   return action$.pipe(
     ofType(ANSWER_QUESTION),
     delay(2000),
-    filter(() => state$.value.quiz.question!.next! !== null),
     mergeMap(() => {
       const questionId = state$.value.quiz.question!.next!;
+
+      if (questionId === null) {
+        return of(finishAction());
+      }
       return of(getQuestionAction(questionId));
     })
   );
