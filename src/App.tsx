@@ -51,21 +51,12 @@ export default class App extends React.Component<{}, State> {
   };
 
   render() {
-    let content;
-
-    if (store.getState().quiz.finished) {
-      content = (
-        
-      );
-    } else {
-      content = <Quiz />;
-    }
-
+    console.log(store.getState().quiz.finished);
     return (
       <Provider store={store}>
         <DarkModeContext.Provider value={this.state.darkMode}>
           <ThemeSwitcher onChangeTheme={this.toggleDarkMode} />
-          {content}
+          <Quiz />
         </DarkModeContext.Provider>
       </Provider>
     );

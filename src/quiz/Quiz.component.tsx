@@ -4,29 +4,32 @@ import './Quiz.css';
 import Answers from '../Answers';
 import { Question } from '../Question';
 import DarkModeContext from '../context';
+import Summary from './Summary.container.component';
 
 interface Props {
+  finished: boolean;
   question?: Question;
   answered: null | number;
   answerQuestion: (answer: number) => void;
-  onComplete?: () => void;
-  onAnswered?: (correct: boolean) => void;
   getQuestion: (id: number) => void;
 }
 
 export default function Quiz({
-  onComplete,
-  onAnswered,
   question,
   answered,
   answerQuestion,
   getQuestion,
+  finished,
 }: Props) {
   useEffect(() => {
     getQuestion(1);
   }, [getQuestion]);
   const context = useContext(DarkModeContext);
   const classNames = ['quiz', context ? 'darkTheme' : ''];
+
+  if (finished) {
+    return <Summary />;
+  }
   return (
     <>
       {question && (
