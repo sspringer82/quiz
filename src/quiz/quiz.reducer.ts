@@ -6,6 +6,8 @@ import {
   ANSWER_QUESTION,
   GET_QUESTION_SUCCESS,
   getQuestionSuccessAction,
+  FINISH,
+  finishAction,
 } from './quiz.actions';
 
 export interface quizState {
@@ -30,7 +32,9 @@ const initialState = {
 export default function(
   state: quizState = initialState,
   action: ActionType<
-    typeof answerQuestionAction | typeof getQuestionSuccessAction
+    | typeof answerQuestionAction
+    | typeof getQuestionSuccessAction
+    | typeof finishAction
   >
 ) {
   switch (action.type) {
@@ -42,6 +46,10 @@ export default function(
       return update(state, {
         question: { $set: action.payload },
         answered: { $set: null },
+      });
+    case FINISH:
+      return update(state, {
+        finished: { $set: true },
       });
     default:
       return state;
