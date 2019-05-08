@@ -53,13 +53,9 @@ export default class App extends React.Component<{}, State> {
   render() {
     let content;
 
-    if (this.state.finished) {
+    if (store.getState().quiz.finished) {
       content = (
-        <div>
-          Gesamt: {this.state.count.count}
-          <br />
-          Davon richtig: {this.state.count.correct}
-        </div>
+        
       );
     } else {
       content = <Quiz />;
