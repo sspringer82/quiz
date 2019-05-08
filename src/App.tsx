@@ -51,7 +51,6 @@ export default class App extends React.Component<{}, State> {
   };
 
   render() {
-    console.log(store.getState().quiz.finished);
     return (
       <Provider store={store}>
         <DarkModeContext.Provider value={this.state.darkMode}>

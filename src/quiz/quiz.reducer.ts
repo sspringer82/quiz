@@ -41,6 +41,15 @@ export default function(
     case ANSWER_QUESTION:
       return update(state, {
         answered: { $set: action.payload },
+        count: {
+          count: { $set: state.count.count + 1 },
+          correct: {
+            $set:
+              state.question!.correct === action.payload
+                ? state.count.correct + 1
+                : state.count.correct,
+          },
+        },
       });
     case GET_QUESTION_SUCCESS:
       return update(state, {
